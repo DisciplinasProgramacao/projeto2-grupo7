@@ -29,8 +29,28 @@ public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
 
+    /**
+     * DIOGO
+     */
     public static Grafo grafoCompleto(int ordem){
-        return null;
+        Grafo grafo = new Grafo("cléia");
+
+        for(int i = 0; i < ordem; i++){
+            Vertice vertice = new Vertice(i);
+            if(vertice.existeAresta(i) != null) {
+                System.out.println("Aresta já existe");
+            } else {
+                vertice.addAresta(i);
+            }
+            for(int j = 0; j < ordem; j++){
+                grafo.addVertice(i);
+                if(i != j){
+                    grafo.addAresta(i, j, 1);
+                }
+            }
+        }
+        
+        return grafo;
     }
 
     /**
@@ -97,7 +117,6 @@ public class Grafo {
             adicionou = (saida.addAresta(destino, peso)&&chegada.addAresta(origem, peso));
         }
         return adicionou;
-
     }
 
 
@@ -108,7 +127,6 @@ public class Grafo {
     public Aresta existeAresta(int verticeA, int verticeB){
        return null;
     }
-    
     
     public boolean completo(){
        return false;
