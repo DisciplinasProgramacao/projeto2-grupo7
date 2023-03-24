@@ -35,12 +35,12 @@ public class Grafo {
         for(int i = 0; i < ordem; i++) {
             Vertice vertice = new Vertice(i);
             grafo.addVertice(i);
-            
+
             for(int j = i+1; j < ordem; j++) {
                 if(vertice.existeAresta(j) == null) {
-                    grafo.addAresta(i, j, 1);
+                    vertice.addAresta(j, -1);
                 } else {
-                    System.out.println("Aresta já existe");
+                    continue;
                 }
             }
         }
