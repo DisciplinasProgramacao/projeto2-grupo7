@@ -29,27 +29,22 @@ public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
 
-    /**
-     * DIOGO
-     */
     public static Grafo grafoCompleto(int ordem){
-        Grafo grafo = new Grafo("cléia");
+        Grafo grafo = new Grafo("graph");
 
-        for(int i = 0; i < ordem; i++){
+        for(int i = 0; i < ordem; i++) {
             Vertice vertice = new Vertice(i);
-            if(vertice.existeAresta(i) != null) {
-                System.out.println("Aresta já existe");
-            } else {
-                vertice.addAresta(i);
-            }
-            for(int j = 0; j < ordem; j++){
-                grafo.addVertice(i);
-                if(i != j){
+            grafo.addVertice(i);
+            
+            for(int j = i+1; j < ordem; j++) {
+                if(vertice.existeAresta(j) == null) {
                     grafo.addAresta(i, j, 1);
+                } else {
+                    System.out.println("Aresta já existe");
                 }
             }
         }
-        
+
         return grafo;
     }
 
