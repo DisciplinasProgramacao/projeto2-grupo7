@@ -34,6 +34,11 @@ public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
 
+    /**
+     * Retorna um grafo completo de ordem n, com todos os vértices conectados entre si
+     * @param ordem
+     * @return Grafo
+     */
     public static Grafo grafoCompleto(int ordem) {
         Grafo grafo = new Grafo("graph");
 
@@ -82,8 +87,9 @@ public class Grafo {
 
     /**
      * Metodo responsavel por salvar os dados do grafo em um arquivo de texto.
-     * 
      * @param nomeArquivo
+     * @return void
+     * @throws IOException
      */
     public void salvar(String nomeArquivo) {
         int quantidadeVertices = this.vertices.size();
