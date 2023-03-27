@@ -87,24 +87,24 @@ public class Grafo {
      */
     public void salvar(String nomeArquivo) {
         int quantidadeVertices = this.vertices.size();
-        StringBuilder vertices = new StringBuilder();
-        List<String> arestas = new ArrayList<String>();
+        StringBuilder verticesGrafo = new StringBuilder();
+        List<String> arestasGrafo = new ArrayList<String>();
         FileWriter arquivo;
 
         try {
             arquivo = new FileWriter(nomeArquivo);
-            for (Vertice vertice : this.vertices.allElements(null)) {
-                vertices.append(vertice.getId() + ";");
+            for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+                verticesGrafo.append(vertice.getId() + ";");
                 if (vertice.getArestas().size() > 0) {
-                    for (Aresta arestaVertice : vertice.getArestas().allElements(null))
-                        arestas.add(String.format("%i;%i;i%", vertice.getId(), arestaVertice.destino(),
+                    for (Aresta arestaVertice : vertice.getArestas().allElements(new Aresta[vertice.getArestas().size()]))
+                        arestasGrafo.add(String.format("%i;%i;i%", vertice.getId(), arestaVertice.destino(),
                                 arestaVertice.peso()));
                 }
             }
 
             arquivo.write(quantidadeVertices);
             arquivo.write(vertices.toString());
-            for (String aresta : arestas)
+            for (String aresta : arestasGrafo)
                 arquivo.write(aresta);
 
             arquivo.close();
