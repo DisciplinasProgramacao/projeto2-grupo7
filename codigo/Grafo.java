@@ -1,3 +1,8 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /** 
  * MIT License
  *
@@ -22,22 +27,22 @@
  * SOFTWARE.
  */
 
-/** 
+/**
  * Classe básica para um Grafo simples não direcionado.
  */
 public class Grafo {
     public final String nome;
     private ABB<Vertice> vertices;
 
-    public static Grafo grafoCompleto(int ordem){
+    public static Grafo grafoCompleto(int ordem) {
         Grafo grafo = new Grafo("graph");
 
-        for(int i = 0; i < ordem; i++) {
+        for (int i = 0; i < ordem; i++) {
             Vertice vertice = new Vertice(i);
             grafo.addVertice(i);
 
-            for(int j = i+1; j < ordem; j++) {
-                if(vertice.existeAresta(j) == null) {
+            for (int j = i + 1; j < ordem; j++) {
+                if (vertice.existeAresta(j) == null) {
                     vertice.addAresta(j, -1);
                 } else {
                     continue;
@@ -49,11 +54,12 @@ public class Grafo {
     }
 
     /**
-     * Construtor. Cria um grafo vazio com um nome escolhido pelo usuário. Em caso de nome não informado 
+     * Construtor. Cria um grafo vazio com um nome escolhido pelo usuário. Em caso
+     * de nome não informado
      * (string vazia), recebe o nome genérico "Grafo"
      */
-    public Grafo(String nome){
-        if(nome.length()==0) 
+    public Grafo(String nome) {
+        if (nome.length() == 0)
             this.nome = "Grafo";
         else
             this.nome = nome;
@@ -61,83 +67,118 @@ public class Grafo {
     }
 
     /**
-     * Retorna o nome do grafo (string), caso seja necessário em outras classes/sistemas
+     * Retorna o nome do grafo (string), caso seja necessário em outras
+     * classes/sistemas
+     * 
      * @return O nome do grafo (uma string)
      */
-    public String nome(){
+    public String nome() {
         return this.nome;
     }
 
-
-    public void carregar(String nomeArquivo){
+    public void carregar(String nomeArquivo) {
 
     }
 
-    public void salvar(String nomeArquivo){
-        
-    }
-    
     /**
-     * Adiciona um vértice com o id especificado. Ignora a ação e retorna false se já existir
-     * um vértice com este id
-     * @param id O identificador do vértice a ser criado/adicionado
-     * @return TRUE se houve a inclusão do vértice, FALSE se já existia vértice com este id
+     * Metodo responsavel por salvar os dados do grafo em um arquivo de texto.
+     * 
+     * @param nomeArquivo
      */
-    public boolean addVertice(int id){
+    public void salvar(String nomeArquivo) {
+        int quantidadeVertices = this.vertices.size();
+        StringBuilder vertices = new StringBuilder();
+        List<String> arestas = new ArrayList<String>();
+        FileWriter arquivo;
+
+        try {
+            arquivo = new FileWriter(nomeArquivo);
+            for (Vertice vertice : this.vertices.allElements(null)) {
+                vertices.append(vertice.getId() + ";");
+                if (vertice.getArestas().size() > 0) {
+                    for (Aresta arestaVertice : vertice.getArestas().allElements(null))
+                        arestas.add(String.format("%i;%i;i%", vertice.getId(), arestaVertice.destino(),
+                                arestaVertice.peso()));
+                }
+            }
+
+            arquivo.write(quantidadeVertices);
+            arquivo.write(vertices.toString());
+            for (String aresta : arestas)
+                arquivo.write(aresta);
+
+            arquivo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Adiciona um vértice com o id especificado. Ignora a ação e retorna false se
+     * já existir
+     * um vértice com este id
+     * 
+     * @param id O identificador do vértice a ser criado/adicionado
+     * @return TRUE se houve a inclusão do vértice, FALSE se já existia vértice com
+     *         este id
+     */
+    public boolean addVertice(int id) {
         Vertice novo = new Vertice(id);
         return this.vertices.add(id, novo);
     }
 
-    public Vertice removeVertice(int id){
+    public Vertice removeVertice(int id) {
         return null;
     }
 
-    public Vertice existeVertice(int idVertice){
+    public Vertice existeVertice(int idVertice) {
         return null;
     }
 
     /**
-     * Adiciona uma aresta entre dois vértices do grafo, caso os dois vértices existam no grafo. 
-     * Caso a aresta já exista, ou algum dos vértices não existir, o comando é ignorado e retorna FALSE.
-     * @param origem Vértice de origem
+     * Adiciona uma aresta entre dois vértices do grafo, caso os dois vértices
+     * existam no grafo.
+     * Caso a aresta já exista, ou algum dos vértices não existir, o comando é
+     * ignorado e retorna FALSE.
+     * 
+     * @param origem  Vértice de origem
      * @param destino Vértice de destino
-     * @param peso Peso da aresta
+     * @param peso    Peso da aresta
      * @return TRUE se foi inserida, FALSE caso contrário
      */
-    public boolean addAresta(int origem, int destino, int peso){
+    public boolean addAresta(int origem, int destino, int peso) {
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
-        if(saida!=null && chegada !=null){
-            adicionou = (saida.addAresta(destino, peso)&&chegada.addAresta(origem, peso));
+        if (saida != null && chegada != null) {
+            adicionou = (saida.addAresta(destino, peso) && chegada.addAresta(origem, peso));
         }
         return adicionou;
     }
 
-
-    public Aresta removeAresta(int origem, int destino){
+    public Aresta removeAresta(int origem, int destino) {
         return null;
     }
 
-    public Aresta existeAresta(int verticeA, int verticeB){
-       return null;
-    }
-    
-    public boolean completo(){
-       return false;
+    public Aresta existeAresta(int verticeA, int verticeB) {
+        return null;
     }
 
-    public Grafo subGrafo(Lista<Integer> vertices){
-        Grafo subgrafo = new Grafo("Subgrafo de "+this.nome);
-        
+    public boolean completo() {
+        return false;
+    }
+
+    public Grafo subGrafo(Lista<Integer> vertices) {
+        Grafo subgrafo = new Grafo("Subgrafo de " + this.nome);
+
         return subgrafo;
     }
-    
-    public int tamanho(){
+
+    public int tamanho() {
         return Integer.MIN_VALUE;
     }
 
-    public int ordem(){
+    public int ordem() {
         return Integer.MIN_VALUE;
     }
 
