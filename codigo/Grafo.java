@@ -189,6 +189,13 @@ public class Grafo {
         return adicionou;
     }
 
+    /**
+     * Remove uma aresta entre dois vértices do grafo, caso os dois vértices existam
+     * @param origem
+     * @param destino
+     * @return Aresta
+     * @return null
+     */
     public Aresta removeAresta(int origem, int destino) {
         for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
             if(vertice.getId() == origem) {
@@ -199,6 +206,13 @@ public class Grafo {
         return null;
     }
 
+    /**
+     * Verifica se existe uma aresta entre dois vértices do grafo
+     * @param verticeA
+     * @param verticeB
+     * @return Aresta
+     * @return null
+     */
     public Aresta existeAresta(int verticeA, int verticeB) {
         for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
             if(vertice.getId() == verticeA) {
