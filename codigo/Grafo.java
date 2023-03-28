@@ -45,15 +45,14 @@ public class Grafo {
     public static Grafo grafoCompleto(int ordem) {
         Grafo grafo = new Grafo("graph");
 
-        for (int i = 0; i < ordem; i++) {
+        for(int i = 0; i < ordem; i++){
             Vertice vertice = new Vertice(i);
-            grafo.addVertice(i);
+            grafo.vertices.add(i, vertice);
 
-            for (int j = i + 1; j < ordem; j++) {
-                if (vertice.existeAresta(j) == null) {
-                    vertice.addAresta(j, -1);
-                } else {
-                    continue;
+            for(int j = 0; j < ordem; j++){
+                if(i != j){
+                    Aresta aresta = new Aresta(i, j);
+                    vertice.getArestas().add(j, aresta);
                 }
             }
         }
@@ -223,14 +222,20 @@ public class Grafo {
         return null;
     }
 
+    /**
+     * Retorna se um grafo é completo ou não
+     * @return boolean
+     */
     public boolean completo() {
         for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            if(vertice.getArestas().size() != this.vertices.size() - 1)
+            if(vertice.getArestas().size() != this.vertices.size() - 1) {
                 return false;
+            }
         }
 
         return true;
     }
+    
 
     public Grafo subGrafo(Lista<Integer> vertices) {
         Grafo subgrafo = new Grafo("Subgrafo de " + this.nome);
