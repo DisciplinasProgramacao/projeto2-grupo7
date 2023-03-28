@@ -1,7 +1,10 @@
 import java.io.FileWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /** 
  * MIT License
@@ -82,7 +85,31 @@ public class Grafo {
     }
 
     public void carregar(String nomeArquivo) {
+        File arquivo;
 
+        try {
+            arquivo = new File(nomeArquivo);
+            
+            Scanner scanner = new Scanner(arquivo);
+
+            String quantidadeVertices = scanner.nextLine();
+            String idVertices = scanner.nextLine();
+            String[] subIds = idVertices.split(";");
+            for(String id : subIds){
+                Vertice vertice = new Vertice(Integer.parseInt(id));
+                this.vertices.add(Integer.parseInt(id), vertice);
+            }
+            while (scanner.hasNextLine()) {
+                String linha = scanner.nextLine();
+                String[] subString = linha.split(";");
+                Vertice vertice = vertices.find(Integer.parseInt(subString[0]));
+                vertice.addAresta(Integer.parseInt(subString[1]), Integer.parseInt(subString[2]));
+            }
+
+            scanner.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
