@@ -163,15 +163,32 @@ public class Grafo {
     }
 
     public Aresta removeAresta(int origem, int destino) {
+        for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            if(vertice.getId() == origem) {
+                return vertice.removeAresta(destino);
+            }
+        }
+
         return null;
     }
 
     public Aresta existeAresta(int verticeA, int verticeB) {
+        for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            if(vertice.getId() == verticeA) {
+                return vertice.existeAresta(verticeB);
+            }
+        }
+
         return null;
     }
 
     public boolean completo() {
-        return false;
+        for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            if(vertice.getArestas().size() != this.vertices.size() - 1)
+                return false;
+        }
+
+        return true;
     }
 
     public Grafo subGrafo(Lista<Integer> vertices) {
