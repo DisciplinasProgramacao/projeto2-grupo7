@@ -162,9 +162,33 @@ public class Grafo {
         return this.vertices.add(id, novo);
     }
 
+    /**
+     * Remove um vértice com o id especificado. Retorna nulo caso o vértice não
+     * exista/não possa ser removido.
+     * 
+     * @param id O identificador do vértice a ser removido
+     * @return Vertice (removido) / null (não removido)
+     */
     public Vertice removeVertice(int id) {
-        return this.vertices.remove(id);
+        Vertice vertice = this.vertices.find(id);
+        if (vertice != null) {
+            for (Vertice vertice2 : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+                if (vertice2.getArestas().find(id) != null)
+                    vertice2.getArestas().remove(id);
+            }
+            this.vertices.remove(id);
+            return vertice;
+        } else
+            return null;
     }
+
+    /**
+     * Retorna o vértice com o id especificado. Retorna nulo caso o vértice não
+     * exista.
+     * 
+     * @param id O identificador do vértice a ser conferido.
+     * @return Vertice (encontrado) / null (não encontrado)
+     */
 
     public Vertice existeVertice(int idVertice) {
         Vertice vertice = this.vertices.find(idVertice);
@@ -260,12 +284,27 @@ public class Grafo {
         return subgrafo;
     }
 
+    /**
+     * Retorna o tamanho do grafo
+     * 
+     * @return int
+     */
     public int tamanho() {
-        return Integer.MIN_VALUE;
+        int tamanho = 0;
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            tamanho += vertice.getArestas().size();
+        }
+
+        return tamanho;
     }
 
+    /**
+     * Retorna a ordem do grafo
+     * 
+     * @return int
+     */
     public int ordem() {
-        return Integer.MIN_VALUE;
+        return this.vertices.size();
     }
 
 }
