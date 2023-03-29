@@ -122,8 +122,8 @@ public class Grafo {
     public void salvar(String nomeArquivo) {
         int quantidadeVertices = this.vertices.size();
         StringBuilder verticesGrafo = new StringBuilder();
-        List<String> arestasGrafo = new ArrayList<String>();
         FileWriter arquivo;
+        StringBuilder textoCaminhos = new StringBuilder();
 
         try {
             arquivo = new FileWriter(nomeArquivo);
@@ -132,16 +132,14 @@ public class Grafo {
                 if (vertice.getArestas().size() > 0) {
                     for (Aresta arestaVertice : vertice.getArestas()
                             .allElements(new Aresta[vertice.getArestas().size()]))
-                        arestasGrafo.add(String.format("%o;%o;%o", vertice.getId(), arestaVertice.destino(),
+                        textoCaminhos.append(String.format("%o;%o;%o\n", vertice.getId(), arestaVertice.destino(),
                                 arestaVertice.peso()));
                 }
             }
-
+            textoCaminhos.deleteCharAt(textoCaminhos.length() - 1);
             arquivo.write(quantidadeVertices + "\n");
             arquivo.write(verticesGrafo.toString() + "\n");
-            for (String aresta : arestasGrafo)
-                arquivo.write(aresta + "\n");
-
+            arquivo.write(textoCaminhos.toString());
             arquivo.close();
         } catch (IOException e) {
             e.printStackTrace();
