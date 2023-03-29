@@ -86,7 +86,7 @@ public class Grafo {
 
     public void carregar(String nomeArquivo) {
         File arquivo;
-
+        Vertice vertice;
         try {
             arquivo = new File(nomeArquivo);
 
@@ -96,13 +96,13 @@ public class Grafo {
             String idVertices = scanner.nextLine();
             String[] subIds = idVertices.split(";");
             for (String id : subIds) {
-                Vertice vertice = new Vertice(Integer.parseInt(id));
+                vertice = new Vertice(Integer.parseInt(id));
                 this.vertices.add(Integer.parseInt(id), vertice);
             }
             while (scanner.hasNextLine()) {
                 String linha = scanner.nextLine();
                 String[] subString = linha.split(";");
-                Vertice vertice = vertices.find(Integer.parseInt(subString[0]));
+                vertice = vertices.find(Integer.parseInt(subString[0]));
                 vertice.addAresta(Integer.parseInt(subString[1]), Integer.parseInt(subString[2]));
             }
 
@@ -122,8 +122,8 @@ public class Grafo {
     public void salvar(String nomeArquivo) {
         int quantidadeVertices = this.vertices.size();
         StringBuilder verticesGrafo = new StringBuilder();
-        FileWriter arquivo;
         StringBuilder textoCaminhos = new StringBuilder();
+        FileWriter arquivo;
 
         try {
             arquivo = new FileWriter(nomeArquivo);
