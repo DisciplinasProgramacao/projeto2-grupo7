@@ -280,6 +280,17 @@ public class Grafo {
 
     public Grafo subGrafo(Lista<Integer> vertices) {
         Grafo subgrafo = new Grafo("Subgrafo de " + this.nome);
+        for (Integer vertice : vertices.allElements(new Integer[vertices.size()])) {
+            subgrafo.addVertice(vertice);
+        }
+
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            for (Aresta aresta : vertice.getArestas().allElements(new Aresta[vertice.getArestas().size()])) {
+                if (subgrafo.existeVertice(aresta.destino()) != null) {
+                    subgrafo.addAresta(vertice.getId(), aresta.destino(), aresta.peso());
+                }
+            }
+        }
 
         return subgrafo;
     }

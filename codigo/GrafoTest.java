@@ -2,6 +2,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.*;
 
 public class GrafoTest {
@@ -58,5 +60,34 @@ public class GrafoTest {
     Grafo grafo = new Grafo("");
     grafo.addVertice(1);
     assertFalse(grafo.addVertice(1));
+  }
+
+  @Test
+  public void CriarSubgrafo() {
+    Grafo grafo = new Grafo("");
+    Lista<Integer> vertices = new Lista<Integer>();
+    for (int i = 0; i <= 10; i++) {
+      grafo.addVertice(i);
+      vertices.add(i);
+    }
+    for (int j = 0; j <= 10; j++) {
+      grafo.addAresta(j, j + 1);
+    }
+    Grafo subgrafo = grafo.subGrafo(vertices);
+    assertNotNull(subgrafo);
+  }
+  @Test
+  public void CriarSubgrafoComArestas() {
+    Grafo grafo = new Grafo("");
+    Lista<Integer> vertices = new Lista<Integer>();
+    for (int i = 0; i <= 10; i++) {
+      grafo.addVertice(i);
+      vertices.add(i);
+    }
+    for (int j = 0; j <= 10; j++) {
+      grafo.addAresta(j, j + 1);
+    }
+    Grafo subgrafo = grafo.subGrafo(vertices);
+    assertNotNull(subgrafo.existeAresta(1, 2));
   }
 }
