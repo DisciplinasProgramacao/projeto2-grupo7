@@ -73,14 +73,11 @@ public class GrafoTest {
     Assertions.assertEquals(10, grafo.tamanho());
   }
 
-  /*
-   * @Test()
-   * public void deveSalvarEmArquivoECarregar() {
-   * Grafo grafo = Grafo.grafoCompleto(5);
-   * // grafo.salvar("grafo.txt");
-   * assertDoesNotThrow(() -> grafo.salvar("grafo.txt"));
-   * }
-   */
+  @Test()
+  public void deveSalvarEmArquivoECarregar() {
+    Grafo grafo = Grafo.grafoCompleto(5);
+    assertDoesNotThrow(() -> grafo.salvar("grafo.txt"));
+  }
 
   @Test
   public void CriarSubgrafo() {

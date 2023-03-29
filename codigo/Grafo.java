@@ -132,15 +132,15 @@ public class Grafo {
                 if (vertice.getArestas().size() > 0) {
                     for (Aresta arestaVertice : vertice.getArestas()
                             .allElements(new Aresta[vertice.getArestas().size()]))
-                        arestasGrafo.add(String.format("%i;%i;i%", vertice.getId(), arestaVertice.destino(),
+                        arestasGrafo.add(String.format("%o;%o;%o", vertice.getId(), arestaVertice.destino(),
                                 arestaVertice.peso()));
                 }
             }
 
-            arquivo.write(quantidadeVertices);
-            arquivo.write(vertices.toString());
+            arquivo.write(quantidadeVertices + "\n");
+            arquivo.write(verticesGrafo.toString() + "\n");
             for (String aresta : arestasGrafo)
-                arquivo.write(aresta);
+                arquivo.write(aresta + "\n");
 
             arquivo.close();
         } catch (IOException e) {

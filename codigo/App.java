@@ -1,7 +1,8 @@
 public class App {
     public static void main(String[] args) throws Exception {
-       Grafo g = Grafo.grafoCompleto(4);
+        Grafo g = Grafo.grafoCompleto(9);
 
-       System.out.println(g.completo());
+        g.salvar("dudu.txt");
+        System.out.println(g.completo());
     }
 }
