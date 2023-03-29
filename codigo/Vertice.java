@@ -58,10 +58,6 @@ public class Vertice {
         return this.arestas;
     }
 
-    public boolean addAresta(int destino) {
-        return false;
-    }
-
     /**
      * Adiciona uma aresta ponderada neste vértice para um destino
      * 
@@ -71,6 +67,16 @@ public class Vertice {
      */
     public boolean addAresta(int destino, int peso) {
         return this.arestas.add(destino, new Aresta(peso, destino));
+    }
+
+    /**
+     * Adiciona uma aresta não ponderada neste vértice para um destino
+     * 
+     * @param dest Vértice de destino
+     * @return TRUE se foi inserida, FALSE caso já existisse e não foi inserida.
+     */
+    public boolean addAresta(int destino) {
+        return this.arestas.add(destino, new Aresta(-1, destino));
     }
 
     public Aresta existeAresta(int destino) {

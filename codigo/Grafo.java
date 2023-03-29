@@ -1,6 +1,5 @@
 import java.io.FileWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,19 +37,21 @@ public class Grafo {
     private ABB<Vertice> vertices;
 
     /**
-     * Retorna um grafo completo de ordem n, com todos os vértices conectados entre si
+     * Retorna um grafo completo de ordem n, com todos os vértices conectados entre
+     * si
+     * 
      * @param ordem
      * @return Grafo
      */
     public static Grafo grafoCompleto(int ordem) {
         Grafo grafo = new Grafo("graph");
 
-        for(int i = 0; i < ordem; i++){
+        for (int i = 0; i < ordem; i++) {
             Vertice vertice = new Vertice(i);
             grafo.vertices.add(i, vertice);
 
-            for(int j = 0; j < ordem; j++){
-                if(i != j){
+            for (int j = 0; j < ordem; j++) {
+                if (i != j) {
                     Aresta aresta = new Aresta(i, j);
                     vertice.getArestas().add(j, aresta);
                 }
@@ -88,13 +89,13 @@ public class Grafo {
 
         try {
             arquivo = new File(nomeArquivo);
-            
+
             Scanner scanner = new Scanner(arquivo);
 
-            String quantidadeVertices = scanner.nextLine();
+            scanner.nextLine();
             String idVertices = scanner.nextLine();
             String[] subIds = idVertices.split(";");
-            for(String id : subIds){
+            for (String id : subIds) {
                 Vertice vertice = new Vertice(Integer.parseInt(id));
                 this.vertices.add(Integer.parseInt(id), vertice);
             }
@@ -113,6 +114,7 @@ public class Grafo {
 
     /**
      * Metodo responsavel por salvar os dados do grafo em um arquivo de texto.
+     * 
      * @param nomeArquivo
      * @return void
      * @throws IOException
@@ -128,7 +130,8 @@ public class Grafo {
             for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
                 verticesGrafo.append(vertice.getId() + ";");
                 if (vertice.getArestas().size() > 0) {
-                    for (Aresta arestaVertice : vertice.getArestas().allElements(new Aresta[vertice.getArestas().size()]))
+                    for (Aresta arestaVertice : vertice.getArestas()
+                            .allElements(new Aresta[vertice.getArestas().size()]))
                         arestasGrafo.add(String.format("%i;%i;i%", vertice.getId(), arestaVertice.destino(),
                                 arestaVertice.peso()));
                 }
@@ -160,11 +163,15 @@ public class Grafo {
     }
 
     public Vertice removeVertice(int id) {
-        return null;
+        return this.vertices.remove(id);
     }
 
     public Vertice existeVertice(int idVertice) {
-        return null;
+        Vertice vertice = this.vertices.find(idVertice);
+        if (vertice != null)
+            return vertice;
+        else
+            return null;
     }
 
     /**
@@ -179,6 +186,10 @@ public class Grafo {
      * @return TRUE se foi inserida, FALSE caso contrário
      */
     public boolean addAresta(int origem, int destino, int peso) {
+        return adicionarAresta(origem, destino, peso);
+    }
+
+    private boolean adicionarAresta(int origem, int destino, int peso) {
         boolean adicionou = false;
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
@@ -188,16 +199,21 @@ public class Grafo {
         return adicionou;
     }
 
+    public boolean addAresta(int origem, int destino) {
+        return adicionarAresta(origem, destino, -1);
+    }
+
     /**
      * Remove uma aresta entre dois vértices do grafo, caso os dois vértices existam
+     * 
      * @param origem
      * @param destino
      * @return Aresta
      * @return null
      */
     public Aresta removeAresta(int origem, int destino) {
-        for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            if(vertice.getId() == origem) {
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            if (vertice.getId() == origem) {
                 return vertice.removeAresta(destino);
             }
         }
@@ -207,14 +223,15 @@ public class Grafo {
 
     /**
      * Verifica se existe uma aresta entre dois vértices do grafo
+     * 
      * @param verticeA
      * @param verticeB
      * @return Aresta
      * @return null
      */
     public Aresta existeAresta(int verticeA, int verticeB) {
-        for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            if(vertice.getId() == verticeA) {
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            if (vertice.getId() == verticeA) {
                 return vertice.existeAresta(verticeB);
             }
         }
@@ -224,18 +241,18 @@ public class Grafo {
 
     /**
      * Retorna se um grafo é completo ou não
+     * 
      * @return boolean
      */
     public boolean completo() {
-        for(Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            if(vertice.getArestas().size() != this.vertices.size() - 1) {
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            if (vertice.getArestas().size() != this.vertices.size() - 1) {
                 return false;
             }
         }
 
         return true;
     }
-    
 
     public Grafo subGrafo(Lista<Integer> vertices) {
         Grafo subgrafo = new Grafo("Subgrafo de " + this.nome);
