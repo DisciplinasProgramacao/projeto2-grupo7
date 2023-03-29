@@ -306,7 +306,7 @@ public class Grafo {
             tamanho += vertice.getArestas().size();
         }
 
-        return tamanho;
+        return tamanho / 2;
     }
 
     /**

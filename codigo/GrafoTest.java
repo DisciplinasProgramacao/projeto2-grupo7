@@ -1,8 +1,7 @@
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-
-import java.util.ArrayList;
 
 import org.junit.jupiter.api.*;
 
@@ -62,6 +61,27 @@ public class GrafoTest {
     assertFalse(grafo.addVertice(1));
   }
 
+  @Test()
+  public void deveRetornarOrdemDoGrafo() {
+    Grafo grafo = Grafo.grafoCompleto(4);
+    Assertions.assertEquals(4, grafo.ordem());
+  }
+
+  @Test()
+  public void deveRetornarTamanhoDoGrafo() {
+    Grafo grafo = Grafo.grafoCompleto(5);
+    Assertions.assertEquals(10, grafo.tamanho());
+  }
+
+  /*
+   * @Test()
+   * public void deveSalvarEmArquivoECarregar() {
+   * Grafo grafo = Grafo.grafoCompleto(5);
+   * // grafo.salvar("grafo.txt");
+   * assertDoesNotThrow(() -> grafo.salvar("grafo.txt"));
+   * }
+   */
+
   @Test
   public void CriarSubgrafo() {
     Grafo grafo = new Grafo("");
@@ -76,6 +96,7 @@ public class GrafoTest {
     Grafo subgrafo = grafo.subGrafo(vertices);
     assertNotNull(subgrafo);
   }
+
   @Test
   public void CriarSubgrafoComArestas() {
     Grafo grafo = new Grafo("");
