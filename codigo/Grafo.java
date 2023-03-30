@@ -44,14 +44,14 @@ public class Grafo {
     public static Grafo grafoCompleto(int ordem) {
         Grafo grafo = new Grafo("graph");
 
-        for (int i = 0; i < ordem; i++) {
-            grafo.addVertice(i);     //vert 1
-        
+        for(int i = 0; i < ordem; i++) {
+            Vertice vertice = new Vertice(i);
+            grafo.addVertice(i);
+        }
 
-            for (int j = 0; j < ordem; j++) {   
-                if (i != j) {
-                    grafo.addAresta(i, j);
-                }
+        for(int i = 0; i < ordem; i++) {
+            for(int j = i + 1; j < ordem; j++) {
+                grafo.addAresta(i, j);
             }
         }
         return grafo;
