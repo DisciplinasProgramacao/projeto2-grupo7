@@ -45,7 +45,6 @@ public class Grafo {
         Grafo grafo = new Grafo("graph");
 
         for(int i = 0; i < ordem; i++) {
-            Vertice vertice = new Vertice(i);
             grafo.addVertice(i);
         }
 
