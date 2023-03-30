@@ -71,7 +71,7 @@ public class GrafoTest {
   @Test()
   public void deveRetornarTamanhoDoGrafo() {
     Grafo grafo = Grafo.grafoCompleto(5);
-    Assertions.assertEquals(10, grafo.tamanho());
+    Assertions.assertEquals(15, grafo.tamanho());
   }
 
   @Test()

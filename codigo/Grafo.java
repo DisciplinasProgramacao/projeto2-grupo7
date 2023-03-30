@@ -45,17 +45,15 @@ public class Grafo {
         Grafo grafo = new Grafo("graph");
 
         for (int i = 0; i < ordem; i++) {
-            Vertice vertice = new Vertice(i);
-            grafo.vertices.add(i, vertice);
+            grafo.addVertice(i);     //vert 1
+        
 
-            for (int j = 0; j < ordem; j++) {
+            for (int j = 0; j < ordem; j++) {   
                 if (i != j) {
-                    Aresta aresta = new Aresta(i, j);
-                    vertice.getArestas().add(j, aresta);
+                    grafo.addAresta(i, j);
                 }
             }
         }
-
         return grafo;
     }
 
@@ -108,7 +106,8 @@ public class Grafo {
                 String linha = scanner.nextLine();
                 String[] subString = linha.split(";");
                 vertice = vertices.find(Integer.parseInt(subString[0]));
-                vertice.addAresta(Integer.parseInt(subString[1]), Integer.parseInt(subString[2]));
+                if(vertice != null)  
+                    vertice.addAresta(Integer.parseInt(subString[1]), Integer.parseInt(subString[2]));
             }
 
             scanner.close();
@@ -271,7 +270,7 @@ public class Grafo {
      */
     public boolean completo() {
         for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            if (vertice.getArestas().size() != this.vertices.size() - 1) {
+            if (vertice.grau() != this.ordem() - 1) {
                 return false;
             }
         }
@@ -279,6 +278,12 @@ public class Grafo {
         return true;
     }
 
+    /**
+     * Método que cria um subgrafo a partir de uma lista de vértices 
+     * 
+     * @param Lista<Integer> - vertices
+     * @return Grafo - subgrafo
+     */
     public Grafo subGrafo(Lista<Integer> vertices) {
         Grafo subgrafo = new Grafo("Subgrafo de " + this.nome);
         for (Integer vertice : vertices.allElements(new Integer[vertices.size()])) {
@@ -307,7 +312,7 @@ public class Grafo {
             tamanho += vertice.getArestas().size();
         }
 
-        return tamanho / 2;
+        return (tamanho / 2) + this.ordem();
     }
 
     /**
