@@ -1,8 +1,6 @@
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /** 
@@ -84,6 +82,14 @@ public class Grafo {
         return this.nome;
     }
 
+
+/**
+     * Metodo responsavel por carregar os dados do grafo de um arquivo de texto.
+     * 
+     * @param nomeArquivo
+     * @return void
+     * @throws IOException
+     */
     public void carregar(String nomeArquivo) {
         File arquivo;
         Vertice vertice;
@@ -92,7 +98,6 @@ public class Grafo {
 
             Scanner scanner = new Scanner(arquivo);
 
-            scanner.nextLine();
             String idVertices = scanner.nextLine();
             String[] subIds = idVertices.split(";");
             for (String id : subIds) {
@@ -120,7 +125,6 @@ public class Grafo {
      * @throws IOException
      */
     public void salvar(String nomeArquivo) {
-        int quantidadeVertices = this.vertices.size();
         StringBuilder verticesGrafo = new StringBuilder();
         StringBuilder textoCaminhos = new StringBuilder();
         FileWriter arquivo;
@@ -137,7 +141,6 @@ public class Grafo {
                 }
             }
             textoCaminhos.deleteCharAt(textoCaminhos.length() - 1);
-            arquivo.write(quantidadeVertices + "\n");
             arquivo.write(verticesGrafo.toString() + "\n");
             arquivo.write(textoCaminhos.toString());
             arquivo.close();

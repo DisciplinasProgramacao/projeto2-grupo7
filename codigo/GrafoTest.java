@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -74,9 +75,18 @@ public class GrafoTest {
   }
 
   @Test()
-  public void deveSalvarEmArquivoECarregar() {
+  public void deveSalvarEmArquivo() {
     Grafo grafo = Grafo.grafoCompleto(5);
     assertDoesNotThrow(() -> grafo.salvar("grafo.txt"));
+  }
+
+  @Test()
+  public void deveCarregarDeArquivo(){
+    Grafo grafo = Grafo.grafoCompleto(5);
+    grafo.salvar("grafo.txt");
+    Grafo grafo2 = new Grafo("");
+    grafo2.carregar("grafo.txt");
+    assertEquals(grafo.completo(), grafo2.completo());
   }
 
   @Test
