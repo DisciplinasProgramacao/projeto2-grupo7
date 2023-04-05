@@ -44,12 +44,12 @@ public class Grafo {
     public static Grafo grafoCompleto(int ordem) {
         Grafo grafo = new Grafo("graph");
 
-        for(int i = 0; i < ordem; i++) {
+        for (int i = 0; i < ordem; i++) {
             grafo.addVertice(i);
         }
 
-        for(int i = 0; i < ordem; i++) {
-            for(int j = i + 1; j < ordem; j++) {
+        for (int i = 0; i < ordem; i++) {
+            for (int j = i + 1; j < ordem; j++) {
                 grafo.addAresta(i, j);
             }
         }
@@ -79,8 +79,7 @@ public class Grafo {
         return this.nome;
     }
 
-
-/**
+    /**
      * Metodo responsavel por carregar os dados do grafo de um arquivo de texto.
      * 
      * @param nomeArquivo
@@ -105,7 +104,7 @@ public class Grafo {
                 String linha = scanner.nextLine();
                 String[] subString = linha.split(";");
                 vertice = vertices.find(Integer.parseInt(subString[0]));
-                if(vertice != null)  
+                if (vertice != null)
                     vertice.addAresta(Integer.parseInt(subString[1]), Integer.parseInt(subString[2]));
             }
 
@@ -134,8 +133,8 @@ public class Grafo {
                 if (vertice.getArestas().size() > 0) {
                     for (Aresta arestaVertice : vertice.getArestas()
                             .allElements(new Aresta[vertice.getArestas().size()]))
-                        textoCaminhos.append(String.format("%o;%o;%o\n", vertice.getId(), arestaVertice.destino(),
-                                arestaVertice.peso()));
+                        textoCaminhos.append(String.format("%o;%o;%s\n", vertice.getId(), arestaVertice.destino(),
+                                ("" + arestaVertice.peso())));
                 }
             }
             textoCaminhos.deleteCharAt(textoCaminhos.length() - 1);
@@ -278,7 +277,7 @@ public class Grafo {
     }
 
     /**
-     * Método que cria um subgrafo a partir de uma lista de vértices 
+     * Método que cria um subgrafo a partir de uma lista de vértices
      * 
      * @param Lista<Integer> - vertices
      * @return Grafo - subgrafo
