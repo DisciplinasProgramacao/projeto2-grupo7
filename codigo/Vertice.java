@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /** 
  * MIT License
  *
@@ -119,5 +122,15 @@ public class Vertice {
      */
     public boolean visitado() {
         return this.visitado;
+    }
+
+    /**
+     * Metodo responsavel por retornar uma lista de vizinhos do vertice
+     * @return Uma lista de inteiros 
+     */
+    public List<Integer> vizinhos(){
+        List<Integer> verticesVizinhos = new ArrayList<Integer>();
+        
+        return verticesVizinhos;
     }
 }

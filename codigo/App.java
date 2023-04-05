@@ -9,8 +9,8 @@ public class App {
         // grafo.addAresta(1, 3);
         // grafo.addAresta(3, 2);
         // grafo.salvar("grafo.txt");
-        grafo.carregar("grafo.txt");
-        grafo.salvar("dudus.txt");
+        // grafo.carregar("grafo.txt");
+        // grafo.salvar("dudus.txt");
         System.out.println(grafo.completo());
     }
 }

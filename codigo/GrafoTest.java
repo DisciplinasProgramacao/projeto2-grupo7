@@ -10,20 +10,20 @@ public class GrafoTest {
 
   @Test()
   public void testaSeOGrafoEhCompleto() {
-    Grafo grafo = Grafo.grafoCompleto(10);
+    GrafoCompleto grafo = new GrafoCompleto("");
     Assertions.assertTrue(grafo.completo());
   }
 
   @Test()
   public void deveAdicionarVertice() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     grafo.addVertice(1);
     assertNotNull(grafo.existeVertice(1));
   }
 
   @Test()
   public void deveAdicionarAresta() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     grafo.addVertice(1);
     grafo.addVertice(2);
     grafo.addAresta(1, 2);
@@ -32,7 +32,7 @@ public class GrafoTest {
 
   @Test()
   public void testeArestaNaoDeveSerDirecionada() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     grafo.addVertice(1);
     grafo.addVertice(2);
     grafo.addAresta(1, 2);
@@ -41,7 +41,7 @@ public class GrafoTest {
 
   @Test()
   public void arestaNaoDeveExistir() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     grafo.addVertice(1);
     grafo.addVertice(2);
     grafo.addAresta(1, 2);
@@ -50,48 +50,48 @@ public class GrafoTest {
 
   @Test()
   public void testeQuandoNaoExisteVertice() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     grafo.addVertice(1);
     assertNull(grafo.existeVertice(2));
   }
 
   @Test()
   public void naoDeveCriarDoisVerticesComIDsIguais() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     grafo.addVertice(1);
     assertFalse(grafo.addVertice(1));
   }
 
   @Test()
   public void deveRetornarOrdemDoGrafo() {
-    Grafo grafo = Grafo.grafoCompleto(4);
+    GrafoCompleto grafo = new GrafoCompleto("");
+    grafo.grafoCompleto(4);
     Assertions.assertEquals(4, grafo.ordem());
   }
 
   @Test()
   public void deveRetornarTamanhoDoGrafo() {
-    Grafo grafo = Grafo.grafoCompleto(5);
+    GrafoCompleto grafo = new GrafoCompleto("");
+    grafo.grafoCompleto(5);
     Assertions.assertEquals(15, grafo.tamanho());
   }
 
   @Test()
   public void deveSalvarEmArquivo() {
-    Grafo grafo = Grafo.grafoCompleto(5);
+    GrafoMutavel grafo = new GrafoMutavel("");
     assertDoesNotThrow(() -> grafo.salvar("grafo.txt"));
   }
 
   @Test()
-  public void deveCarregarDeArquivo(){
-    Grafo grafo = Grafo.grafoCompleto(5);
-    grafo.salvar("grafo.txt");
-    Grafo grafo2 = new Grafo("");
-    grafo2.carregar("grafo.txt");
-    assertEquals(grafo.completo(), grafo2.completo());
+  public void deveCarregarDeArquivo() {
+    GrafoMutavel grafo = new GrafoMutavel("");
+    grafo.carregar("grafo.txt");
+    assertEquals(grafo.completo(), grafo.completo());
   }
 
   @Test
   public void CriarSubgrafo() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     Lista<Integer> vertices = new Lista<Integer>();
     for (int i = 0; i <= 10; i++) {
       grafo.addVertice(i);
@@ -106,7 +106,7 @@ public class GrafoTest {
 
   @Test
   public void CriarSubgrafoComArestas() {
-    Grafo grafo = new Grafo("");
+    GrafoMutavel grafo = new GrafoMutavel("");
     Lista<Integer> vertices = new Lista<Integer>();
     for (int i = 0; i <= 10; i++) {
       grafo.addVertice(i);
