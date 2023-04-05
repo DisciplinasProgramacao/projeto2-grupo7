@@ -91,8 +91,15 @@ public class Grafo {
         Vertice vertice;
         try {
             arquivo = new File(nomeArquivo);
+            if (!arquivo.exists())
+                return;
 
             Scanner scanner = new Scanner(arquivo);
+
+            if (!scanner.hasNext()) {
+                scanner.close();
+                return;
+            }
 
             String idVertices = scanner.nextLine();
             String[] subIds = idVertices.split(";");
