@@ -126,11 +126,15 @@ public class Vertice {
 
     /**
      * Metodo responsavel por retornar uma lista de vizinhos do vertice
-     * @return Uma lista de inteiros 
+     * 
+     * @return Uma lista de inteiros
      */
-    public List<Integer> vizinhos(){
+    public List<Integer> vizinhos() {
         List<Integer> verticesVizinhos = new ArrayList<Integer>();
-        
+
+        for (Aresta aresta : this.arestas.allElements(new Aresta[this.arestas.size()]))
+            verticesVizinhos.add(aresta.destino());
+
         return verticesVizinhos;
     }
 }
