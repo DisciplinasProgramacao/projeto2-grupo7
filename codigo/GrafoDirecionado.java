@@ -23,7 +23,7 @@ public class GrafoDirecionado extends GrafoMutavel {
         Vertice saida = this.existeVertice(origem);
         Vertice chegada = this.existeVertice(destino);
         if (saida != null && chegada != null) {
-            adicionou = (saida.addAresta(destino, peso) && chegada.addAresta(origem, peso));
+            adicionou = (saida.addAresta(destino, peso));
         }
         return adicionou;
     }

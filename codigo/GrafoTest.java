@@ -118,4 +118,13 @@ public class GrafoTest {
     Grafo subgrafo = grafo.subGrafo(vertices);
     assertNotNull(subgrafo.existeAresta(1, 2));
   }
+
+  @Test
+  public void arestaDoGrafoDirecionadoDeveSerUnidirecional() {
+    GrafoDirecionado g = new GrafoDirecionado("");
+    g.addVertice(1);
+    g.addVertice(2);
+    g.addAresta(1, 2);
+    assertNull(g.existeAresta(2, 1)); 
+  }
 }
