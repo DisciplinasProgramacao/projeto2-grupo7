@@ -10,7 +10,7 @@ public class GrafoTest {
 
   @Test()
   public void testaSeOGrafoEhCompleto() {
-    GrafoCompleto grafo = new GrafoCompleto("");
+    GrafoCompleto grafo = new GrafoCompleto(5);
     Assertions.assertTrue(grafo.completo());
   }
 
@@ -64,15 +64,13 @@ public class GrafoTest {
 
   @Test()
   public void deveRetornarOrdemDoGrafo() {
-    GrafoCompleto grafo = new GrafoCompleto("");
-    grafo.grafoCompleto(4);
+    GrafoCompleto grafo = new GrafoCompleto(4);
     Assertions.assertEquals(4, grafo.ordem());
   }
 
   @Test()
   public void deveRetornarTamanhoDoGrafo() {
-    GrafoCompleto grafo = new GrafoCompleto("");
-    grafo.grafoCompleto(5);
+    GrafoCompleto grafo = new GrafoCompleto(5);
     Assertions.assertEquals(15, grafo.tamanho());
   }
 

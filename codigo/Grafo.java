@@ -1,8 +1,3 @@
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-
 /** 
  * MIT License
  *
@@ -129,6 +124,10 @@ public class Grafo {
         return subgrafo;
     }
 
+    public static Grafo grafoCompleto(int ordem) {
+        return new GrafoCompleto(ordem);
+    }
+
     /**
      * Retorna o tamanho do grafo
      * 
@@ -140,7 +139,7 @@ public class Grafo {
             tamanho += vertice.getArestas().size();
         }
 
-        return (tamanho / 2) + this.ordem();
+        return tamanho + this.ordem();
     }
 
     /**
