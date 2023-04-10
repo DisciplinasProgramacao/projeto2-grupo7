@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /** 
  * MIT License
  *
@@ -154,53 +159,27 @@ public class Grafo {
     /**
      * Retorna a lista de vértices do grafo
      * 
-     * @return Lista<Vertice>
+     * @return Lista<Integer>
      */
-    public Grafo bfs(int idVerticeInicio) {
-        GrafoMutavel visita = new GrafoMutavel("Visita do " + this.nome);
-
-        // Cria uma fila para armazenar os vértices a serem visitados
-        Fila<Vertice> fila = new Fila<>();
-
-        // Encontra o vértice de partida
+    public List<Integer> bfs(int idVerticeInicio) {
+        List<Integer> visitados = new ArrayList<>();
+        Queue<Integer> fila = new LinkedList<>();
         Vertice verticeInicio = this.existeVertice(idVerticeInicio);
-        if (verticeInicio == null) {
-            return null;
-        }
-
-        // Adiciona o vértice inicial na fila e marca como visitado
-        fila.enfileirar(verticeInicio);
-        verticeInicio.setVisitado(true);
-        visita.addVertice(verticeInicio.getId());
-
-        // Enquanto a fila não estiver vazia, processa cada vértice
-        while (!fila.estaVazia()) {
-            // Remove o próximo vértice da fila
-            Vertice verticeAtual = fila.desenfileirar();
-
-            // Processa todas as arestas do vértice atual
-            for (Aresta aresta : verticeAtual.getArestas().allElements(new Aresta[verticeAtual.getArestas().size()])) {
-                Vertice verticeAdjacente = this.existeVertice(aresta.destino());
-
-                // Verifica se o vértice adjacente já foi visitado
-                if (verticeAdjacente != null && !verticeAdjacente.visitado()) {
-                    // Marca o vértice adjacente como visitado e adiciona na fila
-                    verticeAdjacente.setVisitado(true);
-                    fila.enfileirar(verticeAdjacente);
-
-                    // Adiciona a aresta no grafo de visita
-                    visita.addAresta(verticeAtual.getId(), verticeAdjacente.getId(), aresta.peso());
-                    visita.addVertice(verticeAdjacente.getId());
+        if (verticeInicio != null) {
+            fila.add(idVerticeInicio);
+            visitados.add(idVerticeInicio);
+            while (!fila.isEmpty()) {
+                int verticeAtual = fila.poll();
+                for (Aresta aresta : this.existeVertice(verticeAtual).getArestas().allElements(new Aresta[0])) {
+                    int verticeDestino = aresta.destino();
+                    if (!visitados.contains(verticeDestino)) {
+                        visitados.add(verticeDestino);
+                        fila.add(verticeDestino);
+                    }
                 }
             }
         }
-
-        // Marca todos os vértices como não visitados
-        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            vertice.limparVisita();
-        }
-
-        return visita;
+        return visitados;
     }
 
     /**
