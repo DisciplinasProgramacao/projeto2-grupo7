@@ -76,4 +76,15 @@ public class Lista<T> {
         return this.data.size();
     }
 
+
+
+    /**
+     * Retorna o índice do elemento na lista. Retorna -1 caso o elemento não exista na lista.
+     * @param element Elemento a ser procurado.
+     * @return O índice do elemento, ou -1 se ele não existir na lista
+     */
+    public boolean contains(Vertice destino) {
+        return this.data.contains(destino);
+    }
+
 }

@@ -152,23 +152,90 @@ public class Grafo {
     }
 
     /**
+     * Retorna a lista de vértices do grafo
      * 
-     * @param idVerticeInicio
-     * @return
+     * @return Lista<Vertice>
      */
     public Grafo bfs(int idVerticeInicio) {
+        GrafoMutavel visita = new GrafoMutavel("Visita do " + this.nome);
 
-        return this;
+        // Cria uma fila para armazenar os vértices a serem visitados
+        Fila<Vertice> fila = new Fila<>();
+
+        // Encontra o vértice de partida
+        Vertice verticeInicio = this.existeVertice(idVerticeInicio);
+        if (verticeInicio == null) {
+            return null;
+        }
+
+        // Adiciona o vértice inicial na fila e marca como visitado
+        fila.enfileirar(verticeInicio);
+        verticeInicio.setVisitado(true);
+        visita.addVertice(verticeInicio.getId());
+
+        // Enquanto a fila não estiver vazia, processa cada vértice
+        while (!fila.estaVazia()) {
+            // Remove o próximo vértice da fila
+            Vertice verticeAtual = fila.desenfileirar();
+
+            // Processa todas as arestas do vértice atual
+            for (Aresta aresta : verticeAtual.getArestas().allElements(new Aresta[verticeAtual.getArestas().size()])) {
+                Vertice verticeAdjacente = this.existeVertice(aresta.destino());
+
+                // Verifica se o vértice adjacente já foi visitado
+                if (verticeAdjacente != null && !verticeAdjacente.visitado()) {
+                    // Marca o vértice adjacente como visitado e adiciona na fila
+                    verticeAdjacente.setVisitado(true);
+                    fila.enfileirar(verticeAdjacente);
+
+                    // Adiciona a aresta no grafo de visita
+                    visita.addAresta(verticeAtual.getId(), verticeAdjacente.getId(), aresta.peso());
+                    visita.addVertice(verticeAdjacente.getId());
+                }
+            }
+        }
+
+        // Marca todos os vértices como não visitados
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            vertice.limparVisita();
+        }
+
+        return visita;
     }
 
     /**
+     * Realiza a busca em profundidade (DFS) a partir do vértice com o ID informado.
+     * Retorna uma lista de vértices visitados na ordem em que foram encontrados.
      * 
-     * @param idVerticeInicio
-     * @return
+     * @param idVerticeInicio O ID do vértice a partir do qual a busca deve iniciar.
+     * @return Uma lista de vértices visitados na ordem em que foram encontrados.
      */
-    public Grafo dfs(int idVerticeInicio) {
+    public Lista<Vertice> dfs(int idVerticeInicio) {
+        Lista<Vertice> visitados = new Lista<>();
+        Vertice verticeInicio = this.existeVertice(idVerticeInicio);
+        if (verticeInicio == null) {
+            return visitados;
+        }
 
-        return this;
+        this.dfsRecursivo(verticeInicio, visitados);
+
+        return visitados;
+    }
+
+    /**
+     * Método recursivo para realizar a busca em profundidade.
+     * 
+     * @param vertice   O vértice atual sendo visitado.
+     * @param visitados A lista de vértices visitados até o momento.
+     */
+    private void dfsRecursivo(Vertice vertice, Lista<Vertice> visitados) {
+        visitados.add(vertice);
+        for (Aresta aresta : vertice.getArestas().allElements(new Aresta[vertice.getArestas().size()])) {
+            Vertice destino = this.existeVertice(aresta.destino());
+            if (destino != null && !visitados.contains(destino)) {
+                this.dfsRecursivo(destino, visitados);
+            }
+        }
     }
 
 }

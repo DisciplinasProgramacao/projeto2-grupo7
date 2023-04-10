@@ -163,4 +163,8 @@ public class GrafoMutavel extends Grafo {
         }
     }
 
+    public Object BuscaInProfundidade(int i) {
+        return null;
+    }
+
 }

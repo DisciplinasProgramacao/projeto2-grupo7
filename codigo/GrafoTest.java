@@ -123,6 +123,69 @@ public class GrafoTest {
     g.addVertice(1);
     g.addVertice(2);
     g.addAresta(1, 2);
-    assertNull(g.existeAresta(2, 1)); 
+    assertNull(g.existeAresta(2, 1));
+  }
+
+  @Test
+  public void testBuscaEmProfundidade() {
+    GrafoMutavel grafo = new GrafoMutavel("Grafo de teste");
+    grafo.addVertice(1);
+    grafo.addVertice(2);
+    grafo.addVertice(3);
+    grafo.addVertice(4);
+    grafo.addVertice(5);
+
+    grafo.addAresta(1, 2);
+    grafo.addAresta(1, 4);
+    grafo.addAresta(2, 3);
+    grafo.addAresta(2, 4);
+    grafo.addAresta(3, 5);
+    grafo.addAresta(4, 5);
+
+    Lista<Vertice> resultado = grafo.dfs(1);
+    Lista<Integer> esperado = new Lista<Integer>();
+    esperado.add(1);
+    esperado.add(2);
+    esperado.add(3);
+    esperado.add(5);
+    esperado.add(4);
+
+    assertEquals(esperado, resultado);
+  }
+
+  @Test
+  public void BuscaEmLargura() {
+    GrafoMutavel grafo = new GrafoMutavel("");
+    grafo.addVertice(1);
+    grafo.addVertice(2);
+    grafo.addVertice(3);
+    grafo.addVertice(4);
+    grafo.addVertice(5);
+    grafo.addVertice(6);
+    grafo.addVertice(7);
+    grafo.addVertice(8);
+    grafo.addVertice(9);
+    grafo.addVertice(10);
+    grafo.addAresta(1, 2);
+    grafo.addAresta(1, 3);
+    grafo.addAresta(1, 4);
+    grafo.addAresta(2, 5);
+    grafo.addAresta(2, 6);
+    grafo.addAresta(3, 7);
+    grafo.addAresta(3, 8);
+    grafo.addAresta(4, 9);
+    grafo.addAresta(4, 10);
+    Lista<Integer> lista = new Lista<Integer>();
+    lista.add(1);
+    lista.add(2);
+    lista.add(3);
+    lista.add(4);
+    lista.add(5);
+    lista.add(6);
+    lista.add(7);
+    lista.add(8);
+    lista.add(9);
+    lista.add(10);
+    assertEquals(lista, grafo.bfs(1));
   }
 }

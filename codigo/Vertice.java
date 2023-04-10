@@ -137,4 +137,22 @@ public class Vertice {
 
         return verticesVizinhos;
     }
+
+    /**
+     * Metodo responsavel por retornar uma lista de vizinhos do vertice
+     * 
+     * @return Uma lista de inteiros
+     */
+    public void setVisitado(boolean b) {
+        this.visitado = b;
+    }
+
+    /**
+     * Metodo responsavel por retornar uma lista de vizinhos do vertice
+     * 
+     * @return Uma lista de inteiros
+     */
+    public boolean isVisitado() {
+        return this.visitado;
+    }
 }
