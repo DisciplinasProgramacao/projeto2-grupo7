@@ -3,6 +3,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Convert;
+
 public class GrafoMutavel extends Grafo {
     GrafoMutavel(String nome) {
         super(nome);
@@ -154,7 +156,9 @@ public class GrafoMutavel extends Grafo {
                                 ("" + arestaVertice.peso())));
                 }
             }
-            textoCaminhos.deleteCharAt(textoCaminhos.length() - 1);
+            if (textoCaminhos.length() > 0)
+                textoCaminhos.deleteCharAt(textoCaminhos.length() - 1);
+
             arquivo.write(verticesGrafo.toString() + "\n");
             arquivo.write(textoCaminhos.toString());
             arquivo.close();

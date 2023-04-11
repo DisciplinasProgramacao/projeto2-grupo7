@@ -12,5 +12,7 @@ public class App {
         // grafo.carregar("grafo.txt");
         // grafo.salvar("dudus.txt");
         System.out.println(grafo.completo());
+        // int[] teste = new int[10];
+
     }
 }
