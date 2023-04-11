@@ -49,4 +49,20 @@ public class GrafoDirecionado extends GrafoMutavel {
 
         return null;
     }
+
+    /**
+     * Retorna o tamanho do grafo
+     * 
+     * @return int
+     */
+    @Override
+    public int tamanho() {
+        int quantidadeArestas = 0;
+        for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
+            quantidadeArestas += vertice.getArestas().size();
+        }
+
+        return quantidadeArestas + this.ordem();
+    }
+
 }

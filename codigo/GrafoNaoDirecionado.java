@@ -46,7 +46,6 @@ public class GrafoNaoDirecionado extends GrafoMutavel {
                 return vertice.removeAresta(destino);
             }
         }
-
         return null;
     }
 }

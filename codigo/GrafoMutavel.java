@@ -3,8 +3,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.annotations.Convert;
-
 public class GrafoMutavel extends Grafo {
     GrafoMutavel(String nome) {
         super(nome);

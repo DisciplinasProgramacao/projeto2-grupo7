@@ -134,12 +134,12 @@ public class Grafo {
      * @return int
      */
     public int tamanho() {
-        int tamanho = 0;
+        int quantidadeArestas = 0;
         for (Vertice vertice : this.vertices.allElements(new Vertice[this.vertices.size()])) {
-            tamanho += vertice.getArestas().size();
+            quantidadeArestas += vertice.getArestas().size();
         }
 
-        return tamanho + this.ordem();
+        return (quantidadeArestas / 2)+ this.ordem();
     }
 
     /**
